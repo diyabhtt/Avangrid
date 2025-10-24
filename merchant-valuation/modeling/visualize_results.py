@@ -97,13 +97,15 @@ def plot_annual_revenue_by_asset(
         p75_vals = asset_data['P75'].values / 1e6
         pred_vals = asset_data['predicted_revenue'].values / 1e6
         
-        # Show P75 as lower bound uncertainty
-        yerr_lower = pred_vals - p75_vals
-        yerr_upper = p50_vals - pred_vals
-        
-        ax.errorbar(x_pos, pred_vals, 
-                   yerr=[yerr_lower, yerr_upper],
-                   fmt='none', ecolor='black', capsize=3, alpha=0.5)
+    # Show P75 as lower bound uncertainty
+    # Ensure error bars are non-negative (matplotlib requires non-negative yerr)
+    import numpy as _np
+    yerr_lower = _np.maximum(pred_vals - p75_vals, 0)
+    yerr_upper = _np.maximum(p50_vals - pred_vals, 0)
+
+    ax.errorbar(x_pos, pred_vals,
+           yerr=[yerr_lower, yerr_upper],
+           fmt='none', ecolor='black', capsize=3, alpha=0.5)
     
     ax.set_xlabel('Year')
     ax.set_ylabel('Annual Revenue ($ Million)')

@@ -149,9 +149,26 @@ def main():
     sensitivity.to_csv('outputs/sensitivity_analysis.csv', index=False)
     print("✓ Saved to outputs/sensitivity_analysis.csv")
     
-    # Step 4: Visualization
+    # Step 4: Financial Enhancements (DCF, NPV, Merchant vs Fixed, Basis, Capacity)
     print("\n" + "="*70)
-    print("STEP 4: VISUALIZATION")
+    print("STEP 4: COMPREHENSIVE FINANCIAL ANALYSIS")
+    print("="*70)
+    
+    from modeling.financial_enhancements import generate_comprehensive_financial_summary
+    
+    financial_summary = generate_comprehensive_financial_summary(
+        forecast_df=forecast_df,
+        monthly_stats_df=pd.read_csv('outputs/monthly_stats.csv'),
+        discount_rate=0.08,  # 8% WACC
+        price_volatility=0.15,  # 15% price volatility
+        n_simulations=2000,
+        capacity_prices={'ERCOT': 50000, 'MISO': 30000, 'CAISO': 0},  # $/MW-year
+        output_path='outputs/financial_summary.json'
+    )
+    
+    # Step 5: Visualization
+    print("\n" + "="*70)
+    print("STEP 5: VISUALIZATION")
     print("="*70)
     
     generate_all_visualizations()
@@ -164,6 +181,7 @@ def main():
     print("  📊 Data: outputs/modeling_dataset.csv")
     print("  🤖 Model: outputs/valuation_model.pkl")
     print("  📈 Forecast: outputs/valuation_forecast.csv")
+    print("  💰 Financial Summary: outputs/financial_summary.json")
     print("  📉 Plots: outputs/plots/")
     print("  📊 Market Metrics: outputs/market_risk_metrics.csv")
     print("  📈 Sensitivity: outputs/sensitivity_analysis.csv")
