@@ -13,6 +13,8 @@ import plotly.graph_objects as go
 from pathlib import Path
 import sys
 import json
+import os
+import uuid
 
 # Add project to path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -53,6 +55,165 @@ st.markdown("---")
 # Sidebar
 st.sidebar.header("📋 Navigation")
 page = st.sidebar.radio("Go to", ["Overview", "Financial Analysis", "Upload Data", "Sensitivity Analysis", "About"])
+
+# ---------- Global session helpers ----------
+def _init_session_state():
+    """Initialize keys used to persist uploads and analysis across pages."""
+    defaults = {
+        'current_session_dir': None,
+        'current_upload_name': None,
+        'current_data_type': None,  # 'raw' or 'forecast'
+        'current_artifacts': {},    # paths to outputs
+        'analysis_sessions': {}     # id -> metadata
+    }
+    for k, v in defaults.items():
+        if k not in st.session_state:
+            st.session_state[k] = v
+
+
+def _create_session_dir() -> str:
+    upload_id = uuid.uuid4().hex[:8]
+    session_dir = os.path.join('outputs', f'upload_{upload_id}')
+    os.makedirs(session_dir, exist_ok=True)
+    return session_dir
+
+
+def _save_excel_to_session(uploaded_file) -> tuple[str, str]:
+    """Persist uploaded Excel to a unique session directory. Returns (session_dir, path)."""
+    session_dir = _create_session_dir()
+    path = os.path.join(session_dir, uploaded_file.name)
+    with open(path, 'wb') as f:
+        f.write(uploaded_file.getbuffer())
+    return session_dir, path
+
+
+@st.cache_data(show_spinner=False)
+def _load_json(path: str):
+    try:
+        with open(path, 'r') as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def _run_raw_excel_pipeline(temp_xlsx_path: str, session_dir: str) -> dict:
+    """Run the end-to-end pipeline on a raw Excel and persist outputs under session_dir.
+    Returns a dict of artifact paths and key summaries."""
+    from src.features import run_pipeline as features_run_pipeline
+    from merge_forwards import merge_forward_prices
+    from modeling.data_preprocessing import prepare_modeling_dataset
+    from modeling.model_training import (
+        prepare_features_labels as prep_feats,
+        train_model,
+        evaluate_model,
+        save_model
+    )
+    from modeling.forecast_valuation import run_forecast_pipeline
+    from modeling.financial_enhancements import generate_comprehensive_financial_summary
+
+    # Step 1: features -> monthly_stats.csv, future_blocks.csv
+    features_run_pipeline(temp_xlsx_path, session_dir)
+    monthly_stats_path = os.path.join(session_dir, 'monthly_stats.csv')
+    future_blocks_path = os.path.join(session_dir, 'future_blocks.csv')
+
+    # Step 2: merge forwards from Excel into future_blocks_with_forward.csv
+    merged_future_path = os.path.join(session_dir, 'future_blocks_with_forward.csv')
+    merge_forward_prices(
+        excel_path=temp_xlsx_path,
+        future_blocks_path=future_blocks_path,
+        output_path=merged_future_path
+    )
+
+    # Step 3: build modeling dataset and train
+    modeling_df = prepare_modeling_dataset(
+        xlsx_path=temp_xlsx_path,
+        forward_csv_path=merged_future_path
+    )
+    modeling_path = os.path.join(session_dir, 'modeling_dataset.csv')
+    modeling_df.to_csv(modeling_path, index=False)
+
+    train_df = modeling_df[modeling_df['year'].isin([2022, 2023])].copy()
+    test_df = modeling_df[modeling_df['year'] == 2024].copy()
+
+    X_train, y_train, encoders = prep_feats(train_df)
+    model = train_model(X_train, y_train, n_estimators=150, max_depth=6)
+    if len(test_df) > 0:
+        X_test, y_test, _ = prep_feats(test_df)
+        _ = evaluate_model(model, X_test, y_test)
+
+    model_path = os.path.join(session_dir, 'valuation_model.pkl')
+    enc_path = os.path.join(session_dir, 'encoders.pkl')
+    save_model(model, encoders, model_path, enc_path)
+
+    # Step 4: forecast + risk
+    forecast_path = os.path.join(session_dir, 'valuation_forecast.csv')
+    forecast_df = run_forecast_pipeline(
+        model_path=model_path,
+        encoders_path=enc_path,
+        future_blocks_path=merged_future_path,
+        modeling_dataset_path=modeling_path,
+        output_path=forecast_path
+    )
+
+    # Step 5: financials
+    financial_summary = generate_comprehensive_financial_summary(
+        forecast_df=forecast_df,
+        monthly_stats_df=pd.read_csv(monthly_stats_path),
+        discount_rate=0.08,
+        price_volatility=0.15,
+        n_simulations=2000,
+        capacity_prices={'ERCOT': 50000, 'MISO': 30000, 'CAISO': 0}
+    )
+    financial_path = os.path.join(session_dir, 'financial_summary.json')
+    with open(financial_path, 'w') as f:
+        json.dump(financial_summary, f, indent=2)
+
+    return {
+        'session_dir': session_dir,
+        'monthly_stats': monthly_stats_path,
+        'future_blocks': future_blocks_path,
+        'future_blocks_with_forward': merged_future_path,
+        'modeling_dataset': modeling_path,
+        'model': model_path,
+        'encoders': enc_path,
+        'forecast': forecast_path,
+        'financial_summary': financial_path
+    }
+
+
+_init_session_state()
+
+# ---------- Global quick upload in sidebar (works on any page) ----------
+st.sidebar.markdown("---")
+st.sidebar.subheader("⚡ Quick Upload & Analyze")
+global_file = st.sidebar.file_uploader("Upload Hackathon Excel or Forecast CSV", type=["xlsx", "csv"], key="global_uploader")
+
+if global_file is not None and st.sidebar.button("Run Pipeline", use_container_width=True):
+    try:
+        if global_file.name.lower().endswith('.xlsx'):
+            # Treat as raw Excel
+            session_dir, excel_path = _save_excel_to_session(global_file)
+            with st.sidebar.status("Processing Excel → monthly stats → training → forecast → financials", expanded=True):
+                artifacts = _run_raw_excel_pipeline(excel_path, session_dir)
+            # Persist in session state
+            st.session_state.current_session_dir = session_dir
+            st.session_state.current_upload_name = global_file.name
+            st.session_state.current_data_type = 'raw'
+            st.session_state.current_artifacts = artifacts
+            st.sidebar.success("✅ Analysis complete. Results are available on all pages.")
+        else:
+            # Forecast CSV path: save to a session dir and note path for page flow to use
+            session_dir = _create_session_dir()
+            csv_path = os.path.join(session_dir, global_file.name)
+            with open(csv_path, 'wb') as f:
+                f.write(global_file.getbuffer())
+            st.session_state.current_session_dir = session_dir
+            st.session_state.current_upload_name = global_file.name
+            st.session_state.current_data_type = 'forecast'
+            st.session_state.current_artifacts = {'uploaded_forecast_csv': csv_path}
+            st.sidebar.info("📄 Forecast CSV uploaded. Use the Upload Data page to run predictions/financials.")
+    except Exception as e:
+        st.sidebar.error(f"❌ Upload processing failed: {e}")
 
 # Load base forecast
 @st.cache_data
@@ -394,26 +555,109 @@ elif page == "Upload Data":
     **Raw data columns:** Hour-level generation and price data with asset/market identifiers
     """)
     
+    # If a prior analysis exists in this browser session, surface it first
+    if st.session_state.get('current_session_dir') and st.session_state.get('current_artifacts'):
+        st.success(f"Resuming last analysis: {st.session_state.get('current_upload_name', '')} → {st.session_state['current_session_dir']}")
+        art = st.session_state['current_artifacts']
+        # Load financial summary if present and display key highlights with a toggle
+        fin_path = art.get('financial_summary')
+        forecast_path = art.get('forecast')
+        monthly_stats_path = art.get('monthly_stats')
+        with st.expander("Show last analysis results", expanded=False):
+            if fin_path and os.path.exists(fin_path):
+                fin = _load_json(fin_path)
+                if fin:
+                    total_npv = fin.get('NPV_Analysis', {}).get('Total_NPV ($M)', 0)
+                    st.metric("Total NPV (last run)", f"${total_npv:.2f}M")
+                    if 'Merchant_vs_Fixed' in fin:
+                        cols = st.columns(max(1, len(fin['Merchant_vs_Fixed'])))
+                        for i, (asset, data) in enumerate(fin['Merchant_vs_Fixed'].items()):
+                            with cols[i]:
+                                st.metric(asset, f"${data.get('Fixed_Price_P75_NPV', 0):.2f}/MWh")
+                    st.download_button("📊 Download Financial Summary", json.dumps(fin, indent=2), file_name="financial_summary.json")
+            if forecast_path and os.path.exists(forecast_path):
+                st.download_button("📄 Download Forecast CSV", open(forecast_path,'rb').read(), file_name="valuation_forecast.csv")
+            if monthly_stats_path and os.path.exists(monthly_stats_path):
+                st.download_button("📋 Download Monthly Stats", open(monthly_stats_path,'rb').read(), file_name="monthly_stats.csv")
+
+    # Optional: list recent session folders to reload
+    with st.expander("Recent analyses on disk", expanded=False):
+        try:
+            base = 'outputs'
+            dirs = [d for d in os.listdir(base) if d.startswith('upload_')]
+            dirs = sorted(dirs, reverse=True)[:10]
+            if len(dirs) == 0:
+                st.caption("No saved analyses found yet.")
+            else:
+                pick = st.selectbox("Choose a session to load", ["-"] + dirs)
+                if pick != "-":
+                    session_dir = os.path.join(base, pick)
+                    fin_path = os.path.join(session_dir, 'financial_summary.json')
+                    if os.path.exists(fin_path):
+                        fin = _load_json(fin_path)
+                        if fin:
+                            st.session_state.current_session_dir = session_dir
+                            st.session_state.current_artifacts = {
+                                'financial_summary': fin_path,
+                                'forecast': os.path.join(session_dir, 'valuation_forecast.csv'),
+                                'monthly_stats': os.path.join(session_dir, 'monthly_stats.csv')
+                            }
+                            st.success(f"✅ Loaded session {pick}")
+        except Exception:
+            pass
+
     uploaded_file = st.file_uploader("Choose a CSV or Excel file", type=["csv", "xlsx"])
     
     if uploaded_file is not None:
         # Load data
         try:
-            if uploaded_file.name.endswith('.csv'):
+            is_excel = uploaded_file.name.lower().endswith('.xlsx')
+            session_id = uuid.uuid4().hex[:8] if is_excel else None
+            session_dir = os.path.join('outputs', f'upload_{session_id}') if is_excel else None
+            temp_xlsx_path = None
+            df_upload = None
+            preview = None
+
+            if not is_excel:
                 df_upload = pd.read_csv(uploaded_file)
+                st.success(f"✅ Loaded {len(df_upload):,} rows from {uploaded_file.name}")
             else:
-                df_upload = pd.read_excel(uploaded_file)
-            
-            st.success(f"✅ Loaded {len(df_upload):,} rows from {uploaded_file.name}")
+                # Save Excel bytes as-is to preserve multi-sheet structure
+                os.makedirs(session_dir, exist_ok=True)
+                temp_xlsx_path = os.path.join(session_dir, uploaded_file.name)
+                with open(temp_xlsx_path, 'wb') as f:
+                    f.write(uploaded_file.getbuffer())
+                st.success(f"✅ Loaded Excel (multi-sheet) → {temp_xlsx_path}")
+
+                # Try to create a friendly preview without strict headers
+                for hdr in (8, 9, None):
+                    try:
+                        tmp = pd.read_excel(temp_xlsx_path, header=hdr)
+                        # Drop unnamed columns for readability
+                        tmp = tmp.loc[:, ~tmp.columns.astype(str).str.startswith('Unnamed')]
+                        if tmp.shape[1] >= 2:
+                            preview = tmp.head(20).copy()
+                            break
+                    except Exception:
+                        continue
             
             # Detect data type
             forecast_cols = ['asset', 'market', 'year', 'month', 'block', 'avg_generation_MW', 'hours_block', 'forward_hub']
-            is_forecast_data = all(col in df_upload.columns for col in forecast_cols)
+            is_forecast_data = (df_upload is not None) and all(col in df_upload.columns for col in forecast_cols)
             
             # Check if it's raw hourly data (has datetime/timestamp column and generation)
-            has_datetime = any(col.lower() in ['datetime', 'timestamp', 'date', 'hour', 'unnamed: 0'] for col in df_upload.columns)
-            has_generation = any('generation' in col.lower() or 'gen' in col.lower() for col in df_upload.columns)
-            is_raw_data = has_datetime and has_generation and not is_forecast_data
+            if df_upload is not None:
+                cols_lower = [str(c).lower() for c in df_upload.columns]
+                has_datetime = any(c in ['datetime', 'timestamp', 'date', 'hour', 'unnamed: 0'] for c in cols_lower)
+                has_generation = any(('generation' in c) or (c == 'gen') or c.startswith('gen') for c in cols_lower)
+                unnamed_ratio = sum(c.startswith('unnamed') for c in cols_lower) / max(len(cols_lower), 1)
+            else:
+                # Excel path saved but not parsed → treat as raw
+                has_datetime = True
+                has_generation = True
+                unnamed_ratio = 1.0
+            # Treat Excel with mostly Unnamed columns as RAW
+            is_raw_data = (is_excel and unnamed_ratio > 0.5) or (has_datetime and has_generation and not is_forecast_data)
             
             # Show data type detected
             if is_forecast_data:
@@ -428,16 +672,25 @@ elif page == "Upload Data":
             
             # Show preview
             with st.expander("📋 Data Preview (first 20 rows)", expanded=False):
-                st.dataframe(df_upload.head(20))
+                if preview is not None:
+                    st.dataframe(preview.fillna('').astype(str))
+                elif df_upload is not None:
+                    st.dataframe(df_upload.head(20).fillna('').astype(str))
+                else:
+                    st.info("No preview available for this Excel format. Proceed to run the pipeline.")
             
             # Show data summary
             col1, col2, col3 = st.columns(3)
-            col1.metric("Total Rows", f"{len(df_upload):,}")
-            col2.metric("Columns", len(df_upload.columns))
-            if 'asset' in df_upload.columns:
+            total_rows = f"{len(df_upload):,}" if df_upload is not None else (f"{len(preview):,}" if preview is not None else "—")
+            total_cols = (len(df_upload.columns) if df_upload is not None else (len(preview.columns) if preview is not None else 0))
+            col1.metric("Total Rows", total_rows)
+            col2.metric("Columns", total_cols)
+            if df_upload is not None and 'asset' in df_upload.columns:
                 col3.metric("Assets", df_upload['asset'].nunique())
-            elif 'market' in df_upload.columns:
+            elif df_upload is not None and 'market' in df_upload.columns:
                 col3.metric("Markets", df_upload['market'].nunique())
+            else:
+                col3.metric("Detected Type", data_type.upper())
             
             # === RAW DATA PIPELINE ===
             if data_type == "raw":
@@ -447,81 +700,81 @@ elif page == "Upload Data":
                 if st.button("🚀 Run Complete Pipeline (Preprocess → Train → Forecast → Analyze)", type="primary"):
                     with st.spinner("Running complete pipeline on raw data..."):
                         try:
-                            # Import pipeline functions
-                            from modeling.data_preprocessing import preprocess_historical_data
-                            from modeling.model_training import train_valuation_model
-                            from modeling.forecast_valuation import generate_forecast, compute_risk_metrics
+                            # Import pipeline functions from this project
+                            from src.features import run_pipeline as features_run_pipeline
+                            from merge_forwards import merge_forward_prices
+                            from modeling.data_preprocessing import prepare_modeling_dataset
+                            from modeling.model_training import (
+                                prepare_features_labels,
+                                train_model,
+                                evaluate_model,
+                                save_model
+                            )
+                            from modeling.forecast_valuation import run_forecast_pipeline
                             from modeling.financial_enhancements import generate_comprehensive_financial_summary
-                            
-                            # Step 1: Preprocessing
+
+                            # Ensure Excel path exists
+                            assert temp_xlsx_path is not None and os.path.exists(temp_xlsx_path)
+
+                            # Step 1: Preprocessing (hourly → monthly stats & future blocks)
                             st.write("**Step 1/5:** Preprocessing hourly data into monthly blocks...")
-                            
-                            # Save uploaded file temporarily
-                            temp_path = f"temp_upload_{uploaded_file.name}"
-                            if uploaded_file.name.endswith('.csv'):
-                                df_upload.to_csv(temp_path, index=False)
+                            features_run_pipeline(temp_xlsx_path, session_dir)
+                            monthly_stats_path = os.path.join(session_dir, 'monthly_stats.csv')
+                            future_blocks_path = os.path.join(session_dir, 'future_blocks.csv')
+                            monthly_stats_df = pd.read_csv(monthly_stats_path)
+                            st.success(f"✅ Built monthly stats: {len(monthly_stats_df):,} rows")
+
+                            # Step 2: Forward prices merge (from Excel side table)
+                            st.write("**Step 2/5:** Extracting forward prices and building future blocks (2026-2030)...")
+                            merged_future_path = os.path.join(session_dir, 'future_blocks_with_forward.csv')
+                            merge_forward_prices(
+                                excel_path=temp_xlsx_path,
+                                future_blocks_path=future_blocks_path,
+                                output_path=merged_future_path
+                            )
+                            st.success("✅ Forward prices merged into future blocks")
+
+                            # Step 3: Build modeling dataset and train model
+                            st.write("**Step 3/5:** Building modeling dataset and training model...")
+                            modeling_df = prepare_modeling_dataset(
+                                xlsx_path=temp_xlsx_path,
+                                forward_csv_path=merged_future_path
+                            )
+                            modeling_path = os.path.join(session_dir, 'modeling_dataset.csv')
+                            modeling_df.to_csv(modeling_path, index=False)
+
+                            # Train/test split
+                            train_df = modeling_df[modeling_df['year'].isin([2022, 2023])].copy()
+                            test_df = modeling_df[modeling_df['year'] == 2024].copy()
+
+                            X_train, y_train, encoders = prepare_features_labels(train_df)
+                            if len(test_df) > 0:
+                                X_test, y_test, _ = prepare_features_labels(test_df)
                             else:
-                                df_upload.to_excel(temp_path, index=False)
-                            
-                            monthly_stats_df = preprocess_historical_data(temp_path)
-                            st.success(f"✅ Preprocessed {len(monthly_stats_df)} monthly blocks from {len(df_upload)} hourly records")
-                            
-                            # Step 2: Model Training
-                            st.write("**Step 2/5:** Training price prediction model...")
-                            model, encoders, metrics = train_valuation_model(monthly_stats_df)
-                            st.success(f"✅ Model trained - R² Score: {metrics['r2']:.3f}, MAE: ${metrics['mae']:.2f}/MWh")
-                            
-                            # Step 3: Generate Forecast
-                            st.write("**Step 3/5:** Generating 2026-2030 forecast...")
-                            
-                            # Extract forward prices (if available in uploaded data)
-                            # For now, use default forward prices
-                            st.info("ℹ️ Using default forward price assumptions for 2026-2030")
-                            
-                            # Create future blocks from monthly stats
-                            forecast_years = [2026, 2027, 2028, 2029, 2030]
-                            future_blocks = []
-                            
-                            for asset in monthly_stats_df['asset'].unique():
-                                for market in monthly_stats_df[monthly_stats_df['asset'] == asset]['market'].unique():
-                                    for year in forecast_years:
-                                        for month in range(1, 13):
-                                            for block in ['Peak', 'OffPeak']:
-                                                # Get historical stats for this asset/market/month/block
-                                                hist = monthly_stats_df[
-                                                    (monthly_stats_df['asset'] == asset) &
-                                                    (monthly_stats_df['market'] == market) &
-                                                    (monthly_stats_df['month'] == month) &
-                                                    (monthly_stats_df['block'] == block)
-                                                ]
-                                                
-                                                if len(hist) > 0:
-                                                    avg_row = hist.mean(numeric_only=True)
-                                                    future_blocks.append({
-                                                        'asset': asset,
-                                                        'market': market,
-                                                        'year': year,
-                                                        'month': month,
-                                                        'block': block,
-                                                        'hours_block': avg_row['hours_block'],
-                                                        'rated_mw': avg_row['rated_mw'],
-                                                        'avg_generation_MW': avg_row['cf_mean'] * avg_row['rated_mw'],
-                                                        'forward_hub': avg_row['forward_hub'],
-                                                        'negshare_da_hub': avg_row.get('negshare_da_hub', 0),
-                                                        'basis_mean': avg_row.get('basis_da_mean', 0),
-                                                        'basis_std': avg_row.get('basis_da_std', 0)
-                                                    })
-                            
-                            future_df = pd.DataFrame(future_blocks)
-                            forecast_df = generate_forecast(model, encoders, future_df)
-                            st.success(f"✅ Generated {len(forecast_df)} forecast records")
-                            
-                            # Step 4: Risk Metrics
-                            st.write("**Step 4/5:** Computing risk metrics...")
-                            forecast_df = compute_risk_metrics(forecast_df, n_simulations=2000, volatility=0.15)
-                            st.success("✅ Risk metrics computed (P50, P75)")
-                            
-                            # Step 5: Financial Analysis
+                                X_test, y_test = None, None
+
+                            model = train_model(X_train, y_train, n_estimators=150, max_depth=6)
+                            if X_test is not None and len(X_test) > 0:
+                                _ = evaluate_model(model, X_test, y_test)
+
+                            # Save artifacts to session dir
+                            model_path = os.path.join(session_dir, 'valuation_model.pkl')
+                            enc_path = os.path.join(session_dir, 'encoders.pkl')
+                            save_model(model, encoders, model_path, enc_path)
+
+                            # Step 4: Forecasting and risk metrics
+                            st.write("**Step 4/5:** Generating forecast and risk metrics...")
+                            forecast_path = os.path.join(session_dir, 'valuation_forecast.csv')
+                            forecast_df = run_forecast_pipeline(
+                                model_path=model_path,
+                                encoders_path=enc_path,
+                                future_blocks_path=merged_future_path,
+                                modeling_dataset_path=modeling_path,
+                                output_path=forecast_path
+                            )
+                            st.success(f"✅ Forecast generated: {len(forecast_df):,} rows")
+
+                            # Step 5: Financial analysis
                             st.write("**Step 5/5:** Running comprehensive financial analysis...")
                             financial_summary = generate_comprehensive_financial_summary(
                                 forecast_df=forecast_df,
@@ -612,10 +865,7 @@ elif page == "Upload Data":
                                     "text/csv"
                                 )
                             
-                            # Clean up temp file
-                            import os
-                            if os.path.exists(temp_path):
-                                os.remove(temp_path)
+                            # Session files are kept in outputs/upload_<id>/ for download
                             
                         except Exception as e:
                             st.error(f"❌ Error during pipeline: {str(e)}")

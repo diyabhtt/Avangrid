@@ -1,0 +1,361 @@
+asset,market,year,month,block,hours_block,rated_mw,forward_hub
+Howling Gale,CAISO,2026,1,Peak,352,100.0,66.38
+Howling Gale,CAISO,2026,1,OffPeak,392,100.0,59.84
+Howling Gale,CAISO,2026,2,Peak,320,100.0,66.38
+Howling Gale,CAISO,2026,2,OffPeak,352,100.0,59.84
+Howling Gale,CAISO,2026,3,Peak,352,100.0,47.9
+Howling Gale,CAISO,2026,3,OffPeak,392,100.0,37.77
+Howling Gale,CAISO,2026,4,Peak,352,100.0,47.59
+Howling Gale,CAISO,2026,4,OffPeak,368,100.0,36.67
+Howling Gale,CAISO,2026,5,Peak,336,100.0,49.0
+Howling Gale,CAISO,2026,5,OffPeak,408,100.0,37.22
+Howling Gale,CAISO,2026,6,Peak,352,100.0,52.13
+Howling Gale,CAISO,2026,6,OffPeak,368,100.0,39.89
+Howling Gale,CAISO,2026,7,Peak,368,100.0,79.1
+Howling Gale,CAISO,2026,7,OffPeak,376,100.0,50.15
+Howling Gale,CAISO,2026,8,Peak,336,100.0,112.37
+Howling Gale,CAISO,2026,8,OffPeak,408,100.0,66.49
+Howling Gale,CAISO,2026,9,Peak,352,100.0,60.22
+Howling Gale,CAISO,2026,9,OffPeak,368,100.0,42.0
+Howling Gale,CAISO,2026,10,Peak,352,100.0,44.56
+Howling Gale,CAISO,2026,10,OffPeak,392,100.0,36.83
+Howling Gale,CAISO,2026,11,Peak,336,100.0,45.37
+Howling Gale,CAISO,2026,11,OffPeak,384,100.0,36.62
+Howling Gale,CAISO,2026,12,Peak,368,100.0,51.64
+Howling Gale,CAISO,2026,12,OffPeak,376,100.0,41.75
+Howling Gale,CAISO,2027,1,Peak,336,100.0,83.9
+Howling Gale,CAISO,2027,1,OffPeak,408,100.0,71.66
+Howling Gale,CAISO,2027,2,Peak,320,100.0,79.46
+Howling Gale,CAISO,2027,2,OffPeak,352,100.0,67.44
+Howling Gale,CAISO,2027,3,Peak,368,100.0,46.26
+Howling Gale,CAISO,2027,3,OffPeak,376,100.0,35.8
+Howling Gale,CAISO,2027,4,Peak,352,100.0,44.53
+Howling Gale,CAISO,2027,4,OffPeak,368,100.0,32.47
+Howling Gale,CAISO,2027,5,Peak,336,100.0,45.63
+Howling Gale,CAISO,2027,5,OffPeak,408,100.0,38.31
+Howling Gale,CAISO,2027,6,Peak,352,100.0,51.39
+Howling Gale,CAISO,2027,6,OffPeak,368,100.0,44.21
+Howling Gale,CAISO,2027,7,Peak,352,100.0,77.52
+Howling Gale,CAISO,2027,7,OffPeak,392,100.0,58.43
+Howling Gale,CAISO,2027,8,Peak,352,100.0,104.08
+Howling Gale,CAISO,2027,8,OffPeak,392,100.0,60.8
+Howling Gale,CAISO,2027,9,Peak,352,100.0,56.94
+Howling Gale,CAISO,2027,9,OffPeak,368,100.0,45.66
+Howling Gale,CAISO,2027,10,Peak,336,100.0,44.31
+Howling Gale,CAISO,2027,10,OffPeak,408,100.0,35.09
+Howling Gale,CAISO,2027,11,Peak,352,100.0,43.53
+Howling Gale,CAISO,2027,11,OffPeak,368,100.0,32.74
+Howling Gale,CAISO,2027,12,Peak,368,100.0,50.65
+Howling Gale,CAISO,2027,12,OffPeak,376,100.0,37.75
+Howling Gale,CAISO,2028,1,Peak,336,100.0,83.84
+Howling Gale,CAISO,2028,1,OffPeak,408,100.0,70.75
+Howling Gale,CAISO,2028,2,Peak,336,100.0,81.57
+Howling Gale,CAISO,2028,2,OffPeak,360,100.0,68.58
+Howling Gale,CAISO,2028,3,Peak,368,100.0,49.16
+Howling Gale,CAISO,2028,3,OffPeak,376,100.0,40.51
+Howling Gale,CAISO,2028,4,Peak,320,100.0,47.9
+Howling Gale,CAISO,2028,4,OffPeak,400,100.0,32.74
+Howling Gale,CAISO,2028,5,Peak,368,100.0,46.66
+Howling Gale,CAISO,2028,5,OffPeak,376,100.0,33.94
+Howling Gale,CAISO,2028,6,Peak,352,100.0,53.5
+Howling Gale,CAISO,2028,6,OffPeak,368,100.0,39.59
+Howling Gale,CAISO,2028,7,Peak,336,100.0,73.6
+Howling Gale,CAISO,2028,7,OffPeak,408,100.0,50.28
+Howling Gale,CAISO,2028,8,Peak,368,100.0,97.57
+Howling Gale,CAISO,2028,8,OffPeak,376,100.0,56.06
+Howling Gale,CAISO,2028,9,Peak,336,100.0,59.14
+Howling Gale,CAISO,2028,9,OffPeak,384,100.0,42.5
+Howling Gale,CAISO,2028,10,Peak,352,100.0,46.49
+Howling Gale,CAISO,2028,10,OffPeak,392,100.0,38.32
+Howling Gale,CAISO,2028,11,Peak,352,100.0,44.12
+Howling Gale,CAISO,2028,11,OffPeak,368,100.0,38.15
+Howling Gale,CAISO,2028,12,Peak,336,100.0,49.49
+Howling Gale,CAISO,2028,12,OffPeak,408,100.0,42.35
+Howling Gale,CAISO,2029,1,Peak,368,100.0,87.82
+Howling Gale,CAISO,2029,1,OffPeak,376,100.0,64.29
+Howling Gale,CAISO,2029,2,Peak,320,100.0,79.89
+Howling Gale,CAISO,2029,2,OffPeak,352,100.0,65.84
+Howling Gale,CAISO,2029,3,Peak,352,100.0,42.17
+Howling Gale,CAISO,2029,3,OffPeak,392,100.0,34.67
+Howling Gale,CAISO,2029,4,Peak,336,100.0,41.37
+Howling Gale,CAISO,2029,4,OffPeak,384,100.0,31.12
+Howling Gale,CAISO,2029,5,Peak,368,100.0,42.5
+Howling Gale,CAISO,2029,5,OffPeak,376,100.0,31.01
+Howling Gale,CAISO,2029,6,Peak,336,100.0,54.39
+Howling Gale,CAISO,2029,6,OffPeak,384,100.0,37.63
+Howling Gale,CAISO,2029,7,Peak,352,100.0,69.72
+Howling Gale,CAISO,2029,7,OffPeak,392,100.0,50.99
+Howling Gale,CAISO,2029,8,Peak,368,100.0,86.06
+Howling Gale,CAISO,2029,8,OffPeak,376,100.0,58.32
+Howling Gale,CAISO,2029,9,Peak,320,100.0,61.47
+Howling Gale,CAISO,2029,9,OffPeak,400,100.0,41.97
+Howling Gale,CAISO,2029,10,Peak,368,100.0,42.43
+Howling Gale,CAISO,2029,10,OffPeak,376,100.0,34.77
+Howling Gale,CAISO,2029,11,Peak,352,100.0,40.04
+Howling Gale,CAISO,2029,11,OffPeak,368,100.0,35.34
+Howling Gale,CAISO,2029,12,Peak,336,100.0,44.6
+Howling Gale,CAISO,2029,12,OffPeak,408,100.0,41.59
+Howling Gale,CAISO,2030,1,Peak,368,100.0,77.81
+Howling Gale,CAISO,2030,1,OffPeak,376,100.0,62.01
+Howling Gale,CAISO,2030,2,Peak,320,100.0,81.01
+Howling Gale,CAISO,2030,2,OffPeak,352,100.0,65.52
+Howling Gale,CAISO,2030,3,Peak,336,100.0,42.07
+Howling Gale,CAISO,2030,3,OffPeak,408,100.0,32.74
+Howling Gale,CAISO,2030,4,Peak,352,100.0,38.74
+Howling Gale,CAISO,2030,4,OffPeak,368,100.0,29.38
+Howling Gale,CAISO,2030,5,Peak,368,100.0,46.17
+Howling Gale,CAISO,2030,5,OffPeak,376,100.0,30.84
+Howling Gale,CAISO,2030,6,Peak,320,100.0,58.45
+Howling Gale,CAISO,2030,6,OffPeak,400,100.0,35.21
+Howling Gale,CAISO,2030,7,Peak,368,100.0,68.72
+Howling Gale,CAISO,2030,7,OffPeak,376,100.0,48.46
+Howling Gale,CAISO,2030,8,Peak,352,100.0,87.21
+Howling Gale,CAISO,2030,8,OffPeak,392,100.0,57.24
+Howling Gale,CAISO,2030,9,Peak,336,100.0,65.01
+Howling Gale,CAISO,2030,9,OffPeak,384,100.0,39.84
+Howling Gale,CAISO,2030,10,Peak,368,100.0,40.58
+Howling Gale,CAISO,2030,10,OffPeak,376,100.0,32.91
+Howling Gale,CAISO,2030,11,Peak,336,100.0,36.06
+Howling Gale,CAISO,2030,11,OffPeak,384,100.0,33.84
+Howling Gale,CAISO,2030,12,Peak,352,100.0,43.55
+Howling Gale,CAISO,2030,12,OffPeak,392,100.0,40.48
+Mantero,MISO,2026,1,Peak,352,71.4,66.38
+Mantero,MISO,2026,1,OffPeak,392,71.4,59.84
+Mantero,MISO,2026,2,Peak,320,71.4,66.38
+Mantero,MISO,2026,2,OffPeak,352,71.4,59.84
+Mantero,MISO,2026,3,Peak,352,71.4,47.9
+Mantero,MISO,2026,3,OffPeak,392,71.4,37.77
+Mantero,MISO,2026,4,Peak,352,71.4,47.59
+Mantero,MISO,2026,4,OffPeak,368,71.4,36.67
+Mantero,MISO,2026,5,Peak,336,71.4,49.0
+Mantero,MISO,2026,5,OffPeak,408,71.4,37.22
+Mantero,MISO,2026,6,Peak,352,71.4,52.13
+Mantero,MISO,2026,6,OffPeak,368,71.4,39.89
+Mantero,MISO,2026,7,Peak,368,71.4,79.1
+Mantero,MISO,2026,7,OffPeak,376,71.4,50.15
+Mantero,MISO,2026,8,Peak,336,71.4,112.37
+Mantero,MISO,2026,8,OffPeak,408,71.4,66.49
+Mantero,MISO,2026,9,Peak,352,71.4,60.22
+Mantero,MISO,2026,9,OffPeak,368,71.4,42.0
+Mantero,MISO,2026,10,Peak,352,71.4,44.56
+Mantero,MISO,2026,10,OffPeak,392,71.4,36.83
+Mantero,MISO,2026,11,Peak,336,71.4,45.37
+Mantero,MISO,2026,11,OffPeak,384,71.4,36.62
+Mantero,MISO,2026,12,Peak,368,71.4,51.64
+Mantero,MISO,2026,12,OffPeak,376,71.4,41.75
+Mantero,MISO,2027,1,Peak,336,71.4,83.9
+Mantero,MISO,2027,1,OffPeak,408,71.4,71.66
+Mantero,MISO,2027,2,Peak,320,71.4,79.46
+Mantero,MISO,2027,2,OffPeak,352,71.4,67.44
+Mantero,MISO,2027,3,Peak,368,71.4,46.26
+Mantero,MISO,2027,3,OffPeak,376,71.4,35.8
+Mantero,MISO,2027,4,Peak,352,71.4,44.53
+Mantero,MISO,2027,4,OffPeak,368,71.4,32.47
+Mantero,MISO,2027,5,Peak,336,71.4,45.63
+Mantero,MISO,2027,5,OffPeak,408,71.4,38.31
+Mantero,MISO,2027,6,Peak,352,71.4,51.39
+Mantero,MISO,2027,6,OffPeak,368,71.4,44.21
+Mantero,MISO,2027,7,Peak,352,71.4,77.52
+Mantero,MISO,2027,7,OffPeak,392,71.4,58.43
+Mantero,MISO,2027,8,Peak,352,71.4,104.08
+Mantero,MISO,2027,8,OffPeak,392,71.4,60.8
+Mantero,MISO,2027,9,Peak,352,71.4,56.94
+Mantero,MISO,2027,9,OffPeak,368,71.4,45.66
+Mantero,MISO,2027,10,Peak,336,71.4,44.31
+Mantero,MISO,2027,10,OffPeak,408,71.4,35.09
+Mantero,MISO,2027,11,Peak,352,71.4,43.53
+Mantero,MISO,2027,11,OffPeak,368,71.4,32.74
+Mantero,MISO,2027,12,Peak,368,71.4,50.65
+Mantero,MISO,2027,12,OffPeak,376,71.4,37.75
+Mantero,MISO,2028,1,Peak,336,71.4,83.84
+Mantero,MISO,2028,1,OffPeak,408,71.4,70.75
+Mantero,MISO,2028,2,Peak,336,71.4,81.57
+Mantero,MISO,2028,2,OffPeak,360,71.4,68.58
+Mantero,MISO,2028,3,Peak,368,71.4,49.16
+Mantero,MISO,2028,3,OffPeak,376,71.4,40.51
+Mantero,MISO,2028,4,Peak,320,71.4,47.9
+Mantero,MISO,2028,4,OffPeak,400,71.4,32.74
+Mantero,MISO,2028,5,Peak,368,71.4,46.66
+Mantero,MISO,2028,5,OffPeak,376,71.4,33.94
+Mantero,MISO,2028,6,Peak,352,71.4,53.5
+Mantero,MISO,2028,6,OffPeak,368,71.4,39.59
+Mantero,MISO,2028,7,Peak,336,71.4,73.6
+Mantero,MISO,2028,7,OffPeak,408,71.4,50.28
+Mantero,MISO,2028,8,Peak,368,71.4,97.57
+Mantero,MISO,2028,8,OffPeak,376,71.4,56.06
+Mantero,MISO,2028,9,Peak,336,71.4,59.14
+Mantero,MISO,2028,9,OffPeak,384,71.4,42.5
+Mantero,MISO,2028,10,Peak,352,71.4,46.49
+Mantero,MISO,2028,10,OffPeak,392,71.4,38.32
+Mantero,MISO,2028,11,Peak,352,71.4,44.12
+Mantero,MISO,2028,11,OffPeak,368,71.4,38.15
+Mantero,MISO,2028,12,Peak,336,71.4,49.49
+Mantero,MISO,2028,12,OffPeak,408,71.4,42.35
+Mantero,MISO,2029,1,Peak,368,71.4,87.82
+Mantero,MISO,2029,1,OffPeak,376,71.4,64.29
+Mantero,MISO,2029,2,Peak,320,71.4,79.89
+Mantero,MISO,2029,2,OffPeak,352,71.4,65.84
+Mantero,MISO,2029,3,Peak,352,71.4,42.17
+Mantero,MISO,2029,3,OffPeak,392,71.4,34.67
+Mantero,MISO,2029,4,Peak,336,71.4,41.37
+Mantero,MISO,2029,4,OffPeak,384,71.4,31.12
+Mantero,MISO,2029,5,Peak,368,71.4,42.5
+Mantero,MISO,2029,5,OffPeak,376,71.4,31.01
+Mantero,MISO,2029,6,Peak,336,71.4,54.39
+Mantero,MISO,2029,6,OffPeak,384,71.4,37.63
+Mantero,MISO,2029,7,Peak,352,71.4,69.72
+Mantero,MISO,2029,7,OffPeak,392,71.4,50.99
+Mantero,MISO,2029,8,Peak,368,71.4,86.06
+Mantero,MISO,2029,8,OffPeak,376,71.4,58.32
+Mantero,MISO,2029,9,Peak,320,71.4,61.47
+Mantero,MISO,2029,9,OffPeak,400,71.4,41.97
+Mantero,MISO,2029,10,Peak,368,71.4,42.43
+Mantero,MISO,2029,10,OffPeak,376,71.4,34.77
+Mantero,MISO,2029,11,Peak,352,71.4,40.04
+Mantero,MISO,2029,11,OffPeak,368,71.4,35.34
+Mantero,MISO,2029,12,Peak,336,71.4,44.6
+Mantero,MISO,2029,12,OffPeak,408,71.4,41.59
+Mantero,MISO,2030,1,Peak,368,71.4,77.81
+Mantero,MISO,2030,1,OffPeak,376,71.4,62.01
+Mantero,MISO,2030,2,Peak,320,71.4,81.01
+Mantero,MISO,2030,2,OffPeak,352,71.4,65.52
+Mantero,MISO,2030,3,Peak,336,71.4,42.07
+Mantero,MISO,2030,3,OffPeak,408,71.4,32.74
+Mantero,MISO,2030,4,Peak,352,71.4,38.74
+Mantero,MISO,2030,4,OffPeak,368,71.4,29.38
+Mantero,MISO,2030,5,Peak,368,71.4,46.17
+Mantero,MISO,2030,5,OffPeak,376,71.4,30.84
+Mantero,MISO,2030,6,Peak,320,71.4,58.45
+Mantero,MISO,2030,6,OffPeak,400,71.4,35.21
+Mantero,MISO,2030,7,Peak,368,71.4,68.72
+Mantero,MISO,2030,7,OffPeak,376,71.4,48.46
+Mantero,MISO,2030,8,Peak,352,71.4,87.21
+Mantero,MISO,2030,8,OffPeak,392,71.4,57.24
+Mantero,MISO,2030,9,Peak,336,71.4,65.01
+Mantero,MISO,2030,9,OffPeak,384,71.4,39.84
+Mantero,MISO,2030,10,Peak,368,71.4,40.58
+Mantero,MISO,2030,10,OffPeak,376,71.4,32.91
+Mantero,MISO,2030,11,Peak,336,71.4,36.06
+Mantero,MISO,2030,11,OffPeak,384,71.4,33.84
+Mantero,MISO,2030,12,Peak,352,71.4,43.55
+Mantero,MISO,2030,12,OffPeak,392,71.4,40.48
+Valentino,ERCOT,2026,1,Peak,352,58.4,66.38
+Valentino,ERCOT,2026,1,OffPeak,392,58.4,59.84
+Valentino,ERCOT,2026,2,Peak,320,58.4,66.38
+Valentino,ERCOT,2026,2,OffPeak,352,58.4,59.84
+Valentino,ERCOT,2026,3,Peak,352,58.4,47.9
+Valentino,ERCOT,2026,3,OffPeak,392,58.4,37.77
+Valentino,ERCOT,2026,4,Peak,352,58.4,47.59
+Valentino,ERCOT,2026,4,OffPeak,368,58.4,36.67
+Valentino,ERCOT,2026,5,Peak,336,58.4,49.0
+Valentino,ERCOT,2026,5,OffPeak,408,58.4,37.22
+Valentino,ERCOT,2026,6,Peak,352,58.4,52.13
+Valentino,ERCOT,2026,6,OffPeak,368,58.4,39.89
+Valentino,ERCOT,2026,7,Peak,368,58.4,79.1
+Valentino,ERCOT,2026,7,OffPeak,376,58.4,50.15
+Valentino,ERCOT,2026,8,Peak,336,58.4,112.37
+Valentino,ERCOT,2026,8,OffPeak,408,58.4,66.49
+Valentino,ERCOT,2026,9,Peak,352,58.4,60.22
+Valentino,ERCOT,2026,9,OffPeak,368,58.4,42.0
+Valentino,ERCOT,2026,10,Peak,352,58.4,44.56
+Valentino,ERCOT,2026,10,OffPeak,392,58.4,36.83
+Valentino,ERCOT,2026,11,Peak,336,58.4,45.37
+Valentino,ERCOT,2026,11,OffPeak,384,58.4,36.62
+Valentino,ERCOT,2026,12,Peak,368,58.4,51.64
+Valentino,ERCOT,2026,12,OffPeak,376,58.4,41.75
+Valentino,ERCOT,2027,1,Peak,336,58.4,83.9
+Valentino,ERCOT,2027,1,OffPeak,408,58.4,71.66
+Valentino,ERCOT,2027,2,Peak,320,58.4,79.46
+Valentino,ERCOT,2027,2,OffPeak,352,58.4,67.44
+Valentino,ERCOT,2027,3,Peak,368,58.4,46.26
+Valentino,ERCOT,2027,3,OffPeak,376,58.4,35.8
+Valentino,ERCOT,2027,4,Peak,352,58.4,44.53
+Valentino,ERCOT,2027,4,OffPeak,368,58.4,32.47
+Valentino,ERCOT,2027,5,Peak,336,58.4,45.63
+Valentino,ERCOT,2027,5,OffPeak,408,58.4,38.31
+Valentino,ERCOT,2027,6,Peak,352,58.4,51.39
+Valentino,ERCOT,2027,6,OffPeak,368,58.4,44.21
+Valentino,ERCOT,2027,7,Peak,352,58.4,77.52
+Valentino,ERCOT,2027,7,OffPeak,392,58.4,58.43
+Valentino,ERCOT,2027,8,Peak,352,58.4,104.08
+Valentino,ERCOT,2027,8,OffPeak,392,58.4,60.8
+Valentino,ERCOT,2027,9,Peak,352,58.4,56.94
+Valentino,ERCOT,2027,9,OffPeak,368,58.4,45.66
+Valentino,ERCOT,2027,10,Peak,336,58.4,44.31
+Valentino,ERCOT,2027,10,OffPeak,408,58.4,35.09
+Valentino,ERCOT,2027,11,Peak,352,58.4,43.53
+Valentino,ERCOT,2027,11,OffPeak,368,58.4,32.74
+Valentino,ERCOT,2027,12,Peak,368,58.4,50.65
+Valentino,ERCOT,2027,12,OffPeak,376,58.4,37.75
+Valentino,ERCOT,2028,1,Peak,336,58.4,83.84
+Valentino,ERCOT,2028,1,OffPeak,408,58.4,70.75
+Valentino,ERCOT,2028,2,Peak,336,58.4,81.57
+Valentino,ERCOT,2028,2,OffPeak,360,58.4,68.58
+Valentino,ERCOT,2028,3,Peak,368,58.4,49.16
+Valentino,ERCOT,2028,3,OffPeak,376,58.4,40.51
+Valentino,ERCOT,2028,4,Peak,320,58.4,47.9
+Valentino,ERCOT,2028,4,OffPeak,400,58.4,32.74
+Valentino,ERCOT,2028,5,Peak,368,58.4,46.66
+Valentino,ERCOT,2028,5,OffPeak,376,58.4,33.94
+Valentino,ERCOT,2028,6,Peak,352,58.4,53.5
+Valentino,ERCOT,2028,6,OffPeak,368,58.4,39.59
+Valentino,ERCOT,2028,7,Peak,336,58.4,73.6
+Valentino,ERCOT,2028,7,OffPeak,408,58.4,50.28
+Valentino,ERCOT,2028,8,Peak,368,58.4,97.57
+Valentino,ERCOT,2028,8,OffPeak,376,58.4,56.06
+Valentino,ERCOT,2028,9,Peak,336,58.4,59.14
+Valentino,ERCOT,2028,9,OffPeak,384,58.4,42.5
+Valentino,ERCOT,2028,10,Peak,352,58.4,46.49
+Valentino,ERCOT,2028,10,OffPeak,392,58.4,38.32
+Valentino,ERCOT,2028,11,Peak,352,58.4,44.12
+Valentino,ERCOT,2028,11,OffPeak,368,58.4,38.15
+Valentino,ERCOT,2028,12,Peak,336,58.4,49.49
+Valentino,ERCOT,2028,12,OffPeak,408,58.4,42.35
+Valentino,ERCOT,2029,1,Peak,368,58.4,87.82
+Valentino,ERCOT,2029,1,OffPeak,376,58.4,64.29
+Valentino,ERCOT,2029,2,Peak,320,58.4,79.89
+Valentino,ERCOT,2029,2,OffPeak,352,58.4,65.84
+Valentino,ERCOT,2029,3,Peak,352,58.4,42.17
+Valentino,ERCOT,2029,3,OffPeak,392,58.4,34.67
+Valentino,ERCOT,2029,4,Peak,336,58.4,41.37
+Valentino,ERCOT,2029,4,OffPeak,384,58.4,31.12
+Valentino,ERCOT,2029,5,Peak,368,58.4,42.5
+Valentino,ERCOT,2029,5,OffPeak,376,58.4,31.01
+Valentino,ERCOT,2029,6,Peak,336,58.4,54.39
+Valentino,ERCOT,2029,6,OffPeak,384,58.4,37.63
+Valentino,ERCOT,2029,7,Peak,352,58.4,69.72
+Valentino,ERCOT,2029,7,OffPeak,392,58.4,50.99
+Valentino,ERCOT,2029,8,Peak,368,58.4,86.06
+Valentino,ERCOT,2029,8,OffPeak,376,58.4,58.32
+Valentino,ERCOT,2029,9,Peak,320,58.4,61.47
+Valentino,ERCOT,2029,9,OffPeak,400,58.4,41.97
+Valentino,ERCOT,2029,10,Peak,368,58.4,42.43
+Valentino,ERCOT,2029,10,OffPeak,376,58.4,34.77
+Valentino,ERCOT,2029,11,Peak,352,58.4,40.04
+Valentino,ERCOT,2029,11,OffPeak,368,58.4,35.34
+Valentino,ERCOT,2029,12,Peak,336,58.4,44.6
+Valentino,ERCOT,2029,12,OffPeak,408,58.4,41.59
+Valentino,ERCOT,2030,1,Peak,368,58.4,77.81
+Valentino,ERCOT,2030,1,OffPeak,376,58.4,62.01
+Valentino,ERCOT,2030,2,Peak,320,58.4,81.01
+Valentino,ERCOT,2030,2,OffPeak,352,58.4,65.52
+Valentino,ERCOT,2030,3,Peak,336,58.4,42.07
+Valentino,ERCOT,2030,3,OffPeak,408,58.4,32.74
+Valentino,ERCOT,2030,4,Peak,352,58.4,38.74
+Valentino,ERCOT,2030,4,OffPeak,368,58.4,29.38
+Valentino,ERCOT,2030,5,Peak,368,58.4,46.17
+Valentino,ERCOT,2030,5,OffPeak,376,58.4,30.84
+Valentino,ERCOT,2030,6,Peak,320,58.4,58.45
+Valentino,ERCOT,2030,6,OffPeak,400,58.4,35.21
+Valentino,ERCOT,2030,7,Peak,368,58.4,68.72
+Valentino,ERCOT,2030,7,OffPeak,376,58.4,48.46
+Valentino,ERCOT,2030,8,Peak,352,58.4,87.21
+Valentino,ERCOT,2030,8,OffPeak,392,58.4,57.24
+Valentino,ERCOT,2030,9,Peak,336,58.4,65.01
+Valentino,ERCOT,2030,9,OffPeak,384,58.4,39.84
+Valentino,ERCOT,2030,10,Peak,368,58.4,40.58
+Valentino,ERCOT,2030,10,OffPeak,376,58.4,32.91
+Valentino,ERCOT,2030,11,Peak,336,58.4,36.06
+Valentino,ERCOT,2030,11,OffPeak,384,58.4,33.84
+Valentino,ERCOT,2030,12,Peak,352,58.4,43.55
+Valentino,ERCOT,2030,12,OffPeak,392,58.4,40.48

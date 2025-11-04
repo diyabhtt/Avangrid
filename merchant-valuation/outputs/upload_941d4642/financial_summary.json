@@ -1,0 +1,159 @@
+{
+  "NPV_Analysis": {
+    "Total_NPV ($M)": 129.70470316315826,
+    "Discount_Rate": 0.08,
+    "By_Asset": [
+      {
+        "Asset": "Howling Gale",
+        "NPV ($)": 67695290.19553193,
+        "NPV ($M)": 67.69529019553194,
+        "Total Revenue ($)": 81483885.63752654,
+        "Discount Rate": 0.08
+      },
+      {
+        "Asset": "Mantero",
+        "NPV ($)": 24232636.55985667,
+        "NPV ($M)": 24.232636559856672,
+        "Total Revenue ($)": 29119961.45836308,
+        "Discount Rate": 0.08
+      },
+      {
+        "Asset": "Valentino",
+        "NPV ($)": 37776776.40776967,
+        "NPV ($M)": 37.776776407769674,
+        "Total Revenue ($)": 45453263.45481224,
+        "Discount Rate": 0.08
+      }
+    ]
+  },
+  "Merchant_vs_Fixed": {
+    "Howling Gale": {
+      "NPV_Merchant_BaseCase": 67695290.19553193,
+      "NPV_Fixed_P75": 68448557.45046957,
+      "Fixed_Price_P75_Nominal": 56.325704032208726,
+      "Fixed_Price_P75_NPV": 56.1443730191711,
+      "Merchant_NPV_Mean_Simulated": 67659142.34442355,
+      "Discount_Rate": 0.08,
+      "Volatility_Assumed": 0.15
+    },
+    "Mantero": {
+      "NPV_Merchant_BaseCase": 24232636.55985667,
+      "NPV_Fixed_P75": 24460873.818216555,
+      "Fixed_Price_P75_Nominal": 33.45247210591204,
+      "Fixed_Price_P75_NPV": 33.41245363775281,
+      "Merchant_NPV_Mean_Simulated": 24221756.246874116,
+      "Discount_Rate": 0.08,
+      "Volatility_Assumed": 0.15
+    },
+    "Valentino": {
+      "NPV_Merchant_BaseCase": 37776776.40776967,
+      "NPV_Fixed_P75": 38209987.65737729,
+      "Fixed_Price_P75_Nominal": 50.63930514366124,
+      "Fixed_Price_P75_NPV": 50.48330997465462,
+      "Merchant_NPV_Mean_Simulated": 37772757.56231584,
+      "Discount_Rate": 0.08,
+      "Volatility_Assumed": 0.15
+    }
+  },
+  "Negative_Price_Exposure": {
+    "Total_Negative_Hours": 8184.528168777177,
+    "Total_Potential_Loss ($)": 12540513.626376225,
+    "Total_Potential_Loss ($M)": 12.540513626376224,
+    "By_Asset": [
+      {
+        "asset": "Howling Gale",
+        "neg_hours": 7541.125074386014,
+        "potential_neg_loss": 12234009.443007927
+      },
+      {
+        "asset": "Mantero",
+        "neg_hours": 398.00008018327935,
+        "potential_neg_loss": 208706.7128756887
+      },
+      {
+        "asset": "Valentino",
+        "neg_hours": 245.40301420788325,
+        "potential_neg_loss": 97797.47049260905
+      }
+    ]
+  },
+  "Basis_Risk": {
+    "Total_Basis_Exposure ($)": 62325714.38560526,
+    "Total_Basis_Exposure ($M)": 62.32571438560526,
+    "Avg_Basis_Mean ($/MWh)": 7.569367524880346,
+    "Avg_Basis_Std ($/MWh)": 11.827738895372164,
+    "By_Asset": [
+      {
+        "asset": "Howling Gale",
+        "basis_da_mean": -0.1282433786335482,
+        "basis_da_std": 2.678788950321577,
+        "basis_exposure": 81781.99961898428
+      },
+      {
+        "asset": "Mantero",
+        "basis_da_mean": 12.979842462261377,
+        "basis_da_std": 12.373626412995968,
+        "basis_exposure": 33130199.406884845
+      },
+      {
+        "asset": "Valentino",
+        "basis_da_mean": 9.856503491013207,
+        "basis_da_std": 20.43080132279894,
+        "basis_exposure": 29113732.979101438
+      }
+    ],
+    "By_Market": [
+      {
+        "market": "CAISO",
+        "basis_da_mean": -0.1282433786335482,
+        "basis_da_std": 2.678788950321577,
+        "basis_exposure": 81781.99961898428
+      },
+      {
+        "market": "ERCOT",
+        "basis_da_mean": 9.856503491013207,
+        "basis_da_std": 20.43080132279894,
+        "basis_exposure": 29113732.979101438
+      },
+      {
+        "market": "MISO",
+        "basis_da_mean": 12.979842462261377,
+        "basis_da_std": 12.373626412995968,
+        "basis_exposure": 33130199.406884845
+      }
+    ]
+  },
+  "Capacity_Revenue": {
+    "Total_Capacity_Revenue ($)": 12022250.0,
+    "Total_Capacity_Revenue ($M)": 12.02225,
+    "By_Asset": [
+      {
+        "Asset": "Howling Gale",
+        "Total_Capacity_Revenue ($)": 0.0,
+        "Total_Capacity_Revenue ($M)": 0.0
+      },
+      {
+        "Asset": "Mantero",
+        "Total_Capacity_Revenue ($)": 5087250.0,
+        "Total_Capacity_Revenue ($M)": 5.08725
+      },
+      {
+        "Asset": "Valentino",
+        "Total_Capacity_Revenue ($)": 6935000.0,
+        "Total_Capacity_Revenue ($M)": 6.935
+      }
+    ],
+    "Capacity_Prices_Assumed": {
+      "ERCOT": 50000,
+      "MISO": 30000,
+      "CAISO": 0
+    },
+    "Qualified_Capacity_Pct": 0.5,
+    "Availability_Factor": 0.95
+  },
+  "Assumptions": {
+    "Discount_Rate_WACC": 0.08,
+    "Price_Volatility": 0.15,
+    "Monte_Carlo_Simulations": 2000
+  }
+}

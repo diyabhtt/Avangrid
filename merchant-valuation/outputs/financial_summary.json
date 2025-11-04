@@ -29,28 +29,28 @@
   "Merchant_vs_Fixed": {
     "Howling Gale": {
       "NPV_Merchant_BaseCase": 67695290.19553193,
-      "NPV_Fixed_P75": 68486006.03601566,
-      "Fixed_Price_P75_Nominal": 56.316479594133085,
-      "Fixed_Price_P75_NPV": 56.17508991714898,
-      "Merchant_NPV_Mean_Simulated": 67723301.86637451,
+      "NPV_Fixed_P75": 68448557.45046957,
+      "Fixed_Price_P75_Nominal": 56.325704032208726,
+      "Fixed_Price_P75_NPV": 56.1443730191711,
+      "Merchant_NPV_Mean_Simulated": 67659142.34442355,
       "Discount_Rate": 0.08,
       "Volatility_Assumed": 0.15
     },
     "Mantero": {
       "NPV_Merchant_BaseCase": 24232636.55985667,
-      "NPV_Fixed_P75": 24469029.923422135,
-      "Fixed_Price_P75_Nominal": 33.44427728173048,
-      "Fixed_Price_P75_NPV": 33.4235945106861,
-      "Merchant_NPV_Mean_Simulated": 24237409.416309677,
+      "NPV_Fixed_P75": 24460873.818216555,
+      "Fixed_Price_P75_Nominal": 33.45247210591204,
+      "Fixed_Price_P75_NPV": 33.41245363775281,
+      "Merchant_NPV_Mean_Simulated": 24221756.246874116,
       "Discount_Rate": 0.08,
       "Volatility_Assumed": 0.15
     },
     "Valentino": {
       "NPV_Merchant_BaseCase": 37776776.40776967,
-      "NPV_Fixed_P75": 38209765.39081619,
-      "Fixed_Price_P75_Nominal": 50.61322227619726,
-      "Fixed_Price_P75_NPV": 50.483016314478604,
-      "Merchant_NPV_Mean_Simulated": 37769227.076365985,
+      "NPV_Fixed_P75": 38209987.65737729,
+      "Fixed_Price_P75_Nominal": 50.63930514366124,
+      "Fixed_Price_P75_NPV": 50.48330997465462,
+      "Merchant_NPV_Mean_Simulated": 37772757.56231584,
       "Discount_Rate": 0.08,
       "Volatility_Assumed": 0.15
     }
